@@ -5,6 +5,7 @@ public class CharacterMovement : MonoBehaviour
 {
     private Rigidbody2D _playerRb;
     public float speed;
+   
     private float _horizontalDir;
     private bool _isFacingRight;
     public Animator animator;
@@ -50,4 +51,6 @@ public class CharacterMovement : MonoBehaviour
             this._isFacingRight = !this._isFacingRight;
         }
     }
+
+    
 }
