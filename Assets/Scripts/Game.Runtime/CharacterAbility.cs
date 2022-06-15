@@ -10,6 +10,7 @@ public class CharacterAbility : MonoBehaviour
     [SerializeField] private LayerMask enemyLayer;
     public int attackPower;
     public int currentHp;
+    public bool playerDead;
     public float attackRange;
     [SerializeField] private HpBarManager characterHpBar;
     [SerializeField] private Animator animator;
@@ -20,6 +21,7 @@ public class CharacterAbility : MonoBehaviour
         this.currentHp = this.maxHp;
         this.characterHpBar.SetMaxHealth(this.maxHp);
         characterRB = GetComponent<Rigidbody2D>();
+        this.playerDead = false;
     }
 
     private void Update()
@@ -29,6 +31,11 @@ public class CharacterAbility : MonoBehaviour
             this.animator.SetTrigger(s_attack);
         }
         characterHpBar.SetHealth(currentHp);
+        if (this.currentHp <= 0)
+        {
+            playerDead = true;
+            Death();
+        }
     }
 
 
@@ -45,17 +52,25 @@ public class CharacterAbility : MonoBehaviour
     {
         if (this.currentHp <= 0)
         {
-            Death();
+            return;
         }
+
         this.currentHp -= damage;
         this.animator.SetTrigger("Hurt");
+
     }
 
     void Death()
     {
-    
-        this.animator.SetTrigger("Death");
-        characterRB.simulated = false;
+
+        if (this.playerDead)
+        {
+            this.animator.SetTrigger("Death");
+            characterRB.simulated = false;
+            this.gameObject.GetComponent<CharacterMovement>().speed = 0;
+        }
+        
+        
     }
     void GetBuff(int point, string type)
     {

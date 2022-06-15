@@ -9,7 +9,6 @@ public class EnemyAbility : MonoBehaviour
     public int currentHealth;
     public int maxHealth;
     [FormerlySerializedAs("damage")] public int attackPower;
-    private int _currentPoint = 0;
     public float moveSpeed = 2f;
     public float chaseSpeed = 2f;
     public bool mustPatrol;
@@ -18,13 +17,13 @@ public class EnemyAbility : MonoBehaviour
     private int currentPoint = 0;
     private int nextPoint = 1;
     private int temp;
-    private bool _ischase;
+    private bool _isChase;
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private HpBarManager characterHpBar;
     [SerializeField] private LayerMask playerMask;
     [SerializeField] private bool flipped;
     [SerializeField] private float visibleRange;
-    [SerializeField] private Transform player;
+    [SerializeField] private CharacterAbility player;
     [SerializeField] private float attackRange;
     [FormerlySerializedAs("AttackPoint")] [SerializeField] private Transform attackPoint;
     public List<Vector2> waypoints = new List<Vector2>();
@@ -67,45 +66,51 @@ public class EnemyAbility : MonoBehaviour
     }
     private void Update()
     {
-        float distanceToPlayer = Vector2.Distance(transform.position, this.player.position);
         
-        if (distanceToPlayer < this.visibleRange&&!this.attacking)
-        {
-            this._ischase = true;
-            ChasePlayer();
-            
-        }
-        else
-        {
-            StopChasePlayer();
-        }
-
-        if (distanceToPlayer < 2)
-        {
-            AttackPlayer();
-        }
-       
-        this.characterHpBar.SetHealth(this.currentHealth);
-        this.enemyAnimator.SetFloat(s_walk,Mathf.Abs(this._enemyRB.velocity.x));
-        if (this.mustPatrol)
-        {
-            MoveToTarget(this.waypoints[currentPoint],this.moveSpeed);
-            float distance = Vector2.Distance(transform.position, this.waypoints[currentPoint]);
-            if (Mathf.Abs(distance) <= 0.5f)
+            float distanceToPlayer = Vector2.Distance(transform.position, this.player.gameObject.transform.position);
+        
+            if (distanceToPlayer < this.visibleRange&&!this.attacking)
             {
-                Debug.Log("Change " + distance);
-                temp = currentPoint;
-                currentPoint = nextPoint;
-                nextPoint = temp;
+                this._isChase = true;
+                ChasePlayer();
+            
             }
-        }
+            else
+            {
+                StopChasePlayer();
+            }
+
+            if (distanceToPlayer < 2)
+            {
+                AttackPlayer();
+            }
+        
+       
+            this.characterHpBar.SetHealth(this.currentHealth);
+            this.enemyAnimator.SetFloat(s_walk,Mathf.Abs(this._enemyRB.velocity.x));
+            if (this.mustPatrol)
+            {
+                MoveToTarget(this.waypoints[currentPoint],this.moveSpeed);
+                float distance = Vector2.Distance(transform.position, this.waypoints[currentPoint]);
+                if (Mathf.Abs(distance) <= 0.5f)
+                {
+                    Debug.Log("Change " + distance);
+                    temp = currentPoint;
+                    currentPoint = nextPoint;
+                    nextPoint = temp;
+                }
+            }
     }
 
    void  AttackPlayer()
    {
+       if (this.player.playerDead)
+       {
+           return;
+       }
        this.mustPatrol = false;
        this.attacking = true;
-       MoveToTarget(this.player.position,0);
+       MoveToTarget(this.player.gameObject.transform.position,0);
        this.enemyAnimator.SetTrigger("Attack");
    }
 
@@ -162,10 +167,10 @@ public class EnemyAbility : MonoBehaviour
 
     private void ChasePlayer()
     {
-        if (this._ischase)
+        if (this._isChase)
         {
             mustPatrol = false;
-            MoveToTarget(this.player.position,this.chaseSpeed);
+            MoveToTarget(this.player.gameObject.transform.position,this.chaseSpeed);
             
         }
     }

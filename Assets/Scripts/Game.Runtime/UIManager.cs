@@ -17,7 +17,6 @@ public class UIManager : MonoBehaviour
     {
             victoryUI.SetActive(GM.isVictory);
             defeatedUI.SetActive(GM.isDefeated);
-        
     }
     public void Replay()
     {

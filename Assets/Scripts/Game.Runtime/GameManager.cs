@@ -21,17 +21,18 @@ public class GameManager : MonoBehaviour
     
     void Update()
     {
+        this.isVictory = (this.enemiesCombie.transform.childCount==0);
+        this.isDefeated = (this.characterAbility.playerDead);
         if (this.isDefeated || isVictory)
         {
             StartCoroutine(Wait());
         }
-        this.isVictory = (this.enemiesCombie.transform.childCount==0);
-        this.isDefeated = (this.characterAbility.currentHp <= 0);
+        
     }
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(4);
-        Time.timeScale = 0;
+        //Time.timeScale = 0;
         UI.SetActive(true);
     }
     
