@@ -14,6 +14,7 @@ public class SpawnItem : MonoBehaviour
     void DropItem()
     {
         var newItem = Instantiate(Item,this.transform.position,Quaternion.identity);
+        newItem.GetComponent<Rigidbody2D>().AddForce(this.transform.up*2,ForceMode2D.Impulse);
     }
     void Update()
     {

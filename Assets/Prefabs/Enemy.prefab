@@ -153,14 +153,14 @@ MonoBehaviour:
   playerMask:
     serializedVersion: 2
     m_Bits: 128
-  flipped: 0
+  isFacingRight: 0
   visibleRange: 5
   player: {fileID: 0}
   attackRange: 3
   attackPoint: {fileID: 5442035152875073556}
   waypoints:
-  - {x: -15.52, y: -3.77}
-  - {x: -5.1, y: -3.77}
+  - {x: 8.77, y: -3.77}
+  - {x: 16.81, y: -3.77}
 --- !u!1 &5442035152875073557
 GameObject:
   m_ObjectHideFlags: 0

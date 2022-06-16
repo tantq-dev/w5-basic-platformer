@@ -15,6 +15,7 @@ public class CharacterAbility : MonoBehaviour
     [SerializeField] private HpBarManager characterHpBar;
     [SerializeField] private Animator animator;
     private static readonly int s_attack = Animator.StringToHash("Attack");
+    private CharacterMovement _movement;
 
     void Start()
     {
@@ -22,6 +23,7 @@ public class CharacterAbility : MonoBehaviour
         this.characterHpBar.SetMaxHealth(this.maxHp);
         characterRB = GetComponent<Rigidbody2D>();
         this.playerDead = false;
+        this._movement = GetComponent<CharacterMovement>();
     }
 
     private void Update()
@@ -79,22 +81,23 @@ public class CharacterAbility : MonoBehaviour
             case "HP":
                 this.currentHp += point;
                 break;
-            case "AttackPower":
+            case "ATK":
                 this.attackPower += point;
                 break;
             case "JumpForce":
-                Debug.Log("Jumphigher");
+                this._movement.jumpAmount+=point;
                 break;
             default:
                 break;
         }
     }
-    private void OnTriggerEnter2D(Collider2D col)
+    
+    private void OnCollisionEnter2D(Collision2D col)
     {
         if (col.gameObject.CompareTag("Buff"))
         {
-            int point = col.GetComponent<BuffScript>().point;
-            string type = col.GetComponent<BuffScript>().typeOfBuff;
+            int point = col.gameObject.GetComponent<BuffScript>().point;
+            string type = col.gameObject.GetComponent<BuffScript>().types.ToString();
             Destroy(col.gameObject);
             GetBuff(point, type);
         }

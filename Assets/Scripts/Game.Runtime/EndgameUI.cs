@@ -1,13 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-public class UIManager : MonoBehaviour
+using UnityEngine.Serialization;
+
+public class EndgameUI : MonoBehaviour
 {
     [SerializeField] private GameObject  victoryUI;
     [SerializeField] private GameObject  defeatedUI;
-    [SerializeField] private GameManager GM;
+    [FormerlySerializedAs("GM")] [SerializeField] private GameManager gm;
+    
     void Start()
     {
         this.gameObject.SetActive(false);
@@ -15,8 +15,8 @@ public class UIManager : MonoBehaviour
 
     void Update()
     {
-            victoryUI.SetActive(GM.isVictory);
-            defeatedUI.SetActive(GM.isDefeated);
+            victoryUI.SetActive(this.gm.isVictory);
+            defeatedUI.SetActive(this.gm.isDefeated);
     }
     public void Replay()
     {

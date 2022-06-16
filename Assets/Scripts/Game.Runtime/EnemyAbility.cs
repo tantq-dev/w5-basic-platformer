@@ -80,7 +80,7 @@ public class EnemyAbility : MonoBehaviour
                 StopChasePlayer();
             }
 
-            if (distanceToPlayer < 2)
+            if (distanceToPlayer < (this.visibleRange/3))
             {
                 AttackPlayer();
             }
@@ -102,6 +102,7 @@ public class EnemyAbility : MonoBehaviour
                 }
             }
     }
+    
 
    void  AttackPlayer()
    {

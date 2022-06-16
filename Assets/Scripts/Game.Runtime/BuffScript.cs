@@ -1,10 +1,15 @@
-using System;
 using UnityEngine;
 
 public class BuffScript : MonoBehaviour
 {
-    public string typeOfBuff;
-    public int point;
+   public enum typeOfBuff
+    {
+        HP,
+        ATK,
+        JumpForce
+    }
 
-    
+    public typeOfBuff types;
+
+    public int point;
 }
