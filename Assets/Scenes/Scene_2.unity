@@ -647,7 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 2000479942}
-  offset: {x: 0, y: 0.63, z: -2}
+  offset: {x: 0, y: 2.1, z: -2}
 --- !u!1 &561177054
 GameObject:
   m_ObjectHideFlags: 0
@@ -955,7 +955,7 @@ GameObject:
   - component: {fileID: 727369620}
   - component: {fileID: 727369619}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Text ATK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1153,7 +1153,7 @@ GameObject:
   - component: {fileID: 812201523}
   - component: {fileID: 812201522}
   m_Layer: 5
-  m_Name: Text (Legacy)
+  m_Name: Text Jump
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1311,7 +1311,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1068412555}
   m_Layer: 5
-  m_Name: JumpInfo_01
+  m_Name: JumpInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1772,8 +1772,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 2107015583}
-  jumpText: {fileID: 727369619}
-  attackText: {fileID: 812201522}
+  jumpText: {fileID: 812201522}
+  attackText: {fileID: 727369619}
   player: {fileID: 439532207}
 --- !u!114 &2033063044
 MonoBehaviour:
