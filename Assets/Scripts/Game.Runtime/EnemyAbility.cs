@@ -21,7 +21,7 @@ public class EnemyAbility : MonoBehaviour
     [SerializeField] private Animator enemyAnimator;
     [SerializeField] private HpBarManager characterHpBar;
     [SerializeField] private LayerMask playerMask;
-    [SerializeField] private bool flipped;
+    [FormerlySerializedAs("flipped")] [SerializeField] private bool isFacingRight;
     [SerializeField] private float visibleRange;
     [SerializeField] private CharacterAbility player;
     [SerializeField] private float attackRange;
@@ -37,7 +37,7 @@ public class EnemyAbility : MonoBehaviour
         this.characterHpBar.SetMaxHealth(this.maxHealth);
         _enemyRB = GetComponent<Rigidbody2D>();
         currentHealth = this.maxHealth;
-        this.flipped = true;
+     
         this.attacking = false;
     }
 
@@ -91,10 +91,11 @@ public class EnemyAbility : MonoBehaviour
             if (this.mustPatrol)
             {
                 MoveToTarget(this.waypoints[currentPoint],this.moveSpeed);
-                float distance = Vector2.Distance(transform.position, this.waypoints[currentPoint]);
-                if (Mathf.Abs(distance) <= 0.5f)
+                //float distance = ;
+                //Debug.Log("Boss distance next point" + distance);
+                if (Mathf.Abs(transform.position.x- this.waypoints[currentPoint].x) <= 0.5f)
                 {
-                    Debug.Log("Change " + distance);
+                    //Debug.Log("Change " + distance);
                     temp = currentPoint;
                     currentPoint = nextPoint;
                     nextPoint = temp;
@@ -140,7 +141,7 @@ public class EnemyAbility : MonoBehaviour
         {
             if (this.transform.position.x < targetPosition.x)
             {
-                if (this.flipped)
+                if (!this.isFacingRight)
                 {
                     LookAtTarget();
                 }
@@ -149,7 +150,7 @@ public class EnemyAbility : MonoBehaviour
             }
             else if (this.transform.position.x > targetPosition.x)
             {
-                if (!this.flipped)
+                if (this.isFacingRight)
                 {
                     LookAtTarget();
                 }
@@ -162,7 +163,7 @@ public class EnemyAbility : MonoBehaviour
     private void LookAtTarget()
     {
         this.transform.Rotate(Vector3.up, 180);
-        this.flipped = !this.flipped;
+        this.isFacingRight = !this.isFacingRight;
     }
 
     private void ChasePlayer()

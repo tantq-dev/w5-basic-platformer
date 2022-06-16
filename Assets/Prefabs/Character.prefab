@@ -103,9 +103,9 @@ Rigidbody2D:
   m_AngularDrag: 0.05
   m_GravityScale: 1
   m_Material: {fileID: 0}
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &1220623655985284128
 MonoBehaviour:
@@ -119,8 +119,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84f59bc65b60c024abc78654c0db3fbf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
-  maxHealth: 0
+  groundCheck: {fileID: 0}
+  checkRadius: 0
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 0
+  speed: 1
+  jumpAmount: 35
+  gravityScale: 10
+  fallingGravityScale: 40
   animator: {fileID: 8745614460205479664}
 --- !u!212 &1220623655985284143
 SpriteRenderer:
@@ -192,6 +199,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   attackPower: 1
+  currentHp: 0
+  playerDead: 0
   attackRange: 2
   characterHpBar: {fileID: 1220623654482326312}
   animator: {fileID: 8745614460205479664}

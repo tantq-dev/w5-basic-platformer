@@ -71,7 +71,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (this._jump&&this._grounded)    
         {
-            this._playerRb.velocity = (Vector2.up*100 * jumpAmount);
+            this._playerRb.velocity = (Vector2.up*150 * jumpAmount);
             
             this._jump = false;
         }
